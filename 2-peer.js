@@ -8,6 +8,8 @@ import {Bootstrap} from "@libp2p/bootstrap";
 import {createRSAPeerId, createEd25519PeerId, createSecp256k1PeerId, createFromJSON, exportToProtobuf} from "@libp2p/peer-id-factory";
 import fs from "fs";
 import disc from "./disc.js";
+import onConnect from "./handler/onConnect.js"
+import variables from "./misc/variables.js";
 
 // VARIABLES
 var node = {};
@@ -28,12 +30,13 @@ const replacerFunc = () => {
 
 setInterval(async () => {
   var mypeerstore = await node.peerStore.all();
+  console.log("Peers: " + variables.connectedPeers.length);
   for(var i=0; i<mypeerstore.length; i++) {
     for(var j=0; j<mypeerstore[i].addresses.length; j++) {
       //console.log(mypeerstore[i].id.toString() + ": " + mypeerstore[i].addresses[j].multiaddr);
     }
   }
-}, 1000);
+}, 10000);
 
 async function init() {
   // Read the peerId.json file
@@ -82,34 +85,24 @@ async function init() {
   // Start the node
   await node.start();
 
+  console.log(node.peerId.toString());
+
+
   // Add event listener
   node.addEventListener("peer:discovery", async (evt) => {
     const peer = evt.detail
     //console.log(peer);
-    console.log(`Discovered: ${peer.id.toString()}`)
+    //console.log(`Discovered: ${peer.id.toString()}`)
     //await node.dial("/ip4/127.0.0.1/tcp/15002/ws/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
   });
 
-  node.connectionManager.addEventListener("peer:connect", async (evt) => {
-    const conn = evt.detail
-    console.log("Connected: " + conn.remotePeer.toString())
-    //setTimeout( async () => {
-      //console.log("Requesting getPeers");
-      var peerInfo = await node.peerStore.get(conn.remotePeer);
-      var answer = await disc.getPeers(node, conn.remotePeer.toString());
-      //console.log(answer);
-      for(var i=0; i<answer.answer.length; i++) {
-        if(answer.answer[i] !== node.peerId.toString()) {
-          console.log("Dialing: " + answer.answer[i]);
-          await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/" + answer.answer[i]);
-        }
-      }
-    //}, 100);
-  });
+  node.connectionManager.addEventListener("peer:connect", async (evt) => {onConnect.onConnect(evt, node)});
 
   node.connectionManager.addEventListener("peer:disconnect", (evt) => {
     const peer = evt.detail
     console.log("Disconnected: " + peer.remotePeer.toString())
+    var index = variables.connectedPeers.indexOf(peer.remotePeer.toString());
+    variables.connectedPeers.splice(index, 1);
   });
 
   // Add protocol handler
@@ -130,7 +123,6 @@ async function init() {
   await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/");
   //await node.dial("/ip4/127.0.0.1/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/");
 
-  console.log(node.peerId.toString());
 }
 
 init();

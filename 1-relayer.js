@@ -9,6 +9,7 @@ import {createRSAPeerId, createEd25519PeerId, createSecp256k1PeerId, createFromJ
 import fs from "fs";
 import { EventEmitter, CustomEvent } from '@libp2p/interfaces/events';
 import disc from "./disc.js";
+import variables "./misc/variables.js";
 
 // VARIABLES
 var node = {};
@@ -30,9 +31,10 @@ const replacerFunc = () => {
 
 setInterval(async () => {
   var mypeerstore = await node.peerStore.all();
+  console.log("Peers: " + variables.connectedPeers.length);
   for(var i=0; i<mypeerstore.length; i++) {
     for(var j=0; j<mypeerstore[i].addresses.length; j++) {
-      console.log(mypeerstore[i].id.toString() + ": " + mypeerstore[i].addresses[j].multiaddr);
+      //console.log(mypeerstore[i].id.toString() + ": " + mypeerstore[i].addresses[j].multiaddr);
     }
   }
   //console.log(mypeerstore);
@@ -98,13 +100,16 @@ async function init() {
   node.connectionManager.addEventListener("peer:connect", (evt) => {
     const peer = evt.detail
     console.log("Connected: " + peer.remotePeer.toString());
+    variables.connectedPeers.push(peer.remotePeer.toString());
     //node.peerStore.dispatchEvent(new CustomEvent<PeerInfo>('peer', { detail: peer.remotePeer.toString() }))
     //node.onDiscoveryPeer(evt);
   });
 
   node.connectionManager.addEventListener("peer:disconnect", (evt) => {
     const peer = evt.detail
-    console.log("Disconnected: " + peer.remotePeer.toString());
+    console.log("Disconnected: " + peer.remotePeer.toString())
+    var index = variables.connectedPeers.indexOf(peer.remotePeer.toString());
+    variables.connectedPeers.splice(index, 1);
   });
 
   // Add protocol handler
