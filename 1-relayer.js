@@ -34,7 +34,7 @@ setInterval(async () => {
       console.log(mypeerstore[i].addresses.length);
       for(var j=0; j<mypeerstore[i].addresses.length; i++) {
         console.log("Multiaddr: " + mypeerstore[i].addresses[j].multiaddr);
-        console.log(mypeerstore[i]);
+        console.log(mypeerstore[i].id.toString());
       }
     }
   }
