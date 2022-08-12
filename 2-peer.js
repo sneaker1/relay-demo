@@ -29,6 +29,7 @@ setInterval(async () => {
   var mypeerstore = await node.peerStore.all();
   //console.log(mypeerstore.length);
   //console.log(JSON.stringify(node, replacerFunc(), 2));
+  //console.log(node.getMultiaddrs());
 }, 1000);
 
 async function init() {
@@ -50,13 +51,13 @@ async function init() {
     streamMuxers: [new Mplex()],
     dht: new KadDHT(),
     //pubsub: new GossipSub(),
-    addresses: {
-       listen: [
-         '/ip4/0.0.0.0/tcp/0',
-         '/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/',
-       ],
-      //announce: ["/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6"]
-    },
+    // addresses: {
+    //    listen: [
+    //      //'/ip4/0.0.0.0/tcp/0',
+    //      '/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6',
+    //    ],
+    //   announce: ["/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6"]
+    // },
     connectionManager: {
       //dialTimeout: 1000000,
       autoDial: true
@@ -108,7 +109,8 @@ async function init() {
   //     console.log("peers");
   // });
 
-  await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
+  //await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
+  await node.dial("/ip4/127.0.0.1/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/");
 
   console.log(node.peerId.toString());
 }
