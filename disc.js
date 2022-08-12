@@ -42,9 +42,7 @@ async function handler({connection, stream, protocol}, node) {
 async function getPeers(_node, _nodeId) {
   var mypeerid = peerIdFromString(_nodeId);
   try {
-    console.log("debug1")
     var {stream} = await _node.dialProtocol(mypeerid, ["/disc"]);
-    console.log("debug2")
     var message = {
       request: "getPeers"
     }

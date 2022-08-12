@@ -99,9 +99,7 @@ async function init() {
   // Add protocol handler
   await node.handle("/disc", async ({connection, stream, protocol}) => {disc.handler({connection, stream, protocol}, node)});
 
-  console.log("debug1");
   await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
-  console.log("debug2");
   // await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6")
   // console.log("debug3");
 
