@@ -13,7 +13,11 @@ var node = {};
 
 setInterval(async () => {
   var mypeerstore = await node.peerStore.all();
-  //console.log(mypeerstore.length);
+  for(var i=0; i<mypeerstore.length; i++) {
+    for(var j=0; j<mypeerstore[i].addresses.length; j++) {
+      console.log(mypeerstore[i].id.toString() + ": " + mypeerstore[i].addresses[j].multiaddr);
+    }
+  }
 }, 1000);
 
 async function init() {
@@ -79,15 +83,15 @@ async function init() {
     console.log("Disconnected: " + peer.remotePeer.toString())
   });
 
-  console.log("debug1");
-  await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
-  console.log("debug2");
-  //await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6")
-  //console.log("debug3");
-
   // console.log("debug1");
-  // await node.dial("/ip4/127.0.0.1/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
+  // await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
   // console.log("debug2");
+  // await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6")
+  // console.log("debug3");
+
+  console.log("debug1");
+  await node.dial("/ip4/127.0.0.1/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
+  console.log("debug2");
   // await node.dial("/ip4/127.0.0.1/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6")
   // console.log("debug3");
 

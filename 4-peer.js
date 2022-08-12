@@ -13,7 +13,11 @@ var node = {};
 
 setInterval(async () => {
   var mypeerstore = await node.peerStore.all();
-  //console.log(mypeerstore.length);
+  for(var i=0; i<mypeerstore.length; i++) {
+    for(var j=0; j<mypeerstore[i].addresses.length; j++) {
+      console.log(mypeerstore[i].id.toString() + ": " + mypeerstore[i].addresses[j].multiaddr);
+    }
+  }
 }, 1000);
 
 async function init() {
