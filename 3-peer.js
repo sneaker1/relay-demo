@@ -8,6 +8,8 @@ import {Bootstrap} from "@libp2p/bootstrap";
 import {createRSAPeerId, createEd25519PeerId, createSecp256k1PeerId, createFromJSON, exportToProtobuf} from "@libp2p/peer-id-factory";
 import fs from "fs";
 import disc from "./disc.js";
+import onConnect from "./handler/onConnect.js"
+import variables from "./misc/variables.js"
 
 // VARIABLES
 var node = {};
@@ -15,7 +17,7 @@ var connectedPeers = [];
 
 setInterval(async () => {
   var mypeerstore = await node.peerStore.all();
-  console.log("Peers: " + connectedPeers.length);
+  console.log("Peers: " + variables.connectedPeers.length);
   for(var i=0; i<mypeerstore.length; i++) {
     for(var j=0; j<mypeerstore[i].addresses.length; j++) {
       //console.log(mypeerstore[i].id.toString() + ": " + mypeerstore[i].addresses[j].multiaddr);
