@@ -52,7 +52,7 @@ async function init() {
     //pubsub: new GossipSub(),
     addresses: {
       listen: [
-        '/ip4/127.0.0.1/tcp/15002',
+        '/ip4/0.0.0.0/tcp/15002',
       ],
     },
     //peerDiscovery: [
