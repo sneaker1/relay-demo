@@ -1,10 +1,11 @@
 import variables from "../misc/variables.js"
 import disc from "../disc.js";
+import colors from "colors";
 
 async function onConnect(evt, node) {
   const conn = evt.detail
   if(!variables.connectedPeers.includes(conn.remotePeer.toString())) {
-    console.log("Connected: " + conn.remotePeer.toString())
+    console.log("[" .blue + conn.stat.direction.toUpperCase() + "] " + conn.remotePeer.toString())
     variables.connectedPeers.push(conn.remotePeer.toString());
     var answer = await disc.getPeers(node, conn.remotePeer.toString());
     //console.log(answer);
