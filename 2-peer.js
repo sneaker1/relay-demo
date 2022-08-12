@@ -7,6 +7,7 @@ import {KadDHT} from "@libp2p/kad-dht";
 import {Bootstrap} from "@libp2p/bootstrap";
 import {createRSAPeerId, createEd25519PeerId, createSecp256k1PeerId, createFromJSON, exportToProtobuf} from "@libp2p/peer-id-factory";
 import fs from "fs";
+import disc from "./disc.js";
 
 // VARIABLES
 var node = {};
@@ -89,15 +90,25 @@ async function init() {
     //await node.dial("/ip4/127.0.0.1/tcp/15002/ws/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
   });
 
-  node.connectionManager.addEventListener("peer:connect", (evt) => {
-    const peer = evt.detail
-    console.log("Connected: " + peer.remotePeer.toString())
+  node.connectionManager.addEventListener("peer:connect", async (evt) => {
+    const conn = evt.detail
+    console.log("Connected: " + conn.remotePeer.toString())
+    //setTimeout( async () => {
+      console.log("Requesting getPeers");
+      var peerInfo = await node.peerStore.get(conn.remotePeer);
+      var answer = await disc.getPeers(node, conn.remotePeer.toString());
+      console.log(answer);
+    //}, 100);
   });
 
   node.connectionManager.addEventListener("peer:disconnect", (evt) => {
     const peer = evt.detail
     console.log("Disconnected: " + peer.remotePeer.toString())
   });
+
+  // Add protocol handler
+
+  await node.handle("/disc", async ({connection, stream, protocol}) => {disc.handler({connection, stream, protocol})});
 
   // Wait for connection and relay to be bind for the example purpose
   // node.peerStore.on('change:multiaddrs', ({ peerId }) => {
@@ -112,7 +123,9 @@ async function init() {
   // });
 
   //await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/");
+  console.log("debug");
   await node.dial("/ip4/127.0.0.1/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/");
+  console.log("debug");
 
   console.log(node.peerId.toString());
 }

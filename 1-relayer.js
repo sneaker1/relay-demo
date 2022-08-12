@@ -7,7 +7,8 @@ import {KadDHT} from "@libp2p/kad-dht";
 import {Bootstrap} from "@libp2p/bootstrap";
 import {createRSAPeerId, createEd25519PeerId, createSecp256k1PeerId, createFromJSON, exportToProtobuf} from "@libp2p/peer-id-factory";
 import fs from "fs";
-import { EventEmitter, CustomEvent } from '@libp2p/interfaces/events'
+import { EventEmitter, CustomEvent } from '@libp2p/interfaces/events';
+import disc from "./disc.js";
 
 // VARIABLES
 var node = {};
@@ -106,11 +107,11 @@ async function init() {
     console.log("Disconnected: " + peer.remotePeer.toString());
   });
 
-  // node.peerStore.addEventListener('peer', evt => {
-  //     console.log("peers");
-  // });
+  // Add protocol handler
+  await node.handle("/disc", async ({connection, stream, protocol}) => {disc.handler({connection, stream, protocol}, node)});
 
-  //console.log(node.components.getTransportManager().transports);
+
+
 
   console.log(`Node started with id ${node.peerId.toString()}`)
   console.log('Listening on:')
