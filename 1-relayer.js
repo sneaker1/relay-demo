@@ -100,7 +100,9 @@ async function init() {
   node.connectionManager.addEventListener("peer:connect", (evt) => {
     const peer = evt.detail
     console.log("Connected: " + peer.remotePeer.toString());
-    variables.connectedPeers.push(peer.remotePeer.toString());
+    if(!variables.connectedPeers.includes(peer.remotePeer.toString())) {
+      variables.connectedPeers.push(peer.remotePeer.toString());    
+    }
     //node.peerStore.dispatchEvent(new CustomEvent<PeerInfo>('peer', { detail: peer.remotePeer.toString() }))
     //node.onDiscoveryPeer(evt);
   });
