@@ -30,7 +30,7 @@ const replacerFunc = () => {
 setInterval(async () => {
   var mypeerstore = await node.peerStore.all();
   for(var i=0; i<mypeerstore.length; i++) {
-    //console.log(mypeerstore[i].addresses);
+    console.log(mypeerstore[i].addresses);
   }
   //console.log(mypeerstore);
 }, 5000);

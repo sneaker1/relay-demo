@@ -35,11 +35,11 @@ async function init() {
     streamMuxers: [new Mplex()],
     dht: new KadDHT(),
     //pubsub: new GossipSub(),
-    addresses: {
-      listen: [
-        '/ip4/0.0.0.0/tcp/0',
-      ],
-    },
+    // addresses: {
+    //   listen: [
+    //     '/ip4/0.0.0.0/tcp/0',
+    //   ],
+    // },
     connectionManager: {
       //dialTimeout: 1000000,
       autoDial: true
@@ -78,7 +78,7 @@ async function init() {
     console.log("Disconnected: " + peer.remotePeer.toString())
   });
 
-  await node.dial("/ip4/127.0.0.1/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
+  await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
 
   console.log(node.peerId.toString());
 }
