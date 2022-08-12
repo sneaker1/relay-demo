@@ -104,7 +104,7 @@ async function init() {
 
   console.log(`Node started with id ${node.peerId.toString()}`)
   console.log('Listening on:')
-  node.multiaddrs.forEach((ma) => console.log(`${ma.toString()}/p2p/${node.peerId.toString()}`))
+  //node.multiaddrs.forEach((ma) => console.log(`${ma.toString()}/p2p/${node.peerId.toString()}`))
 }
 
 init();
