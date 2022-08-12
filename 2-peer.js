@@ -50,11 +50,11 @@ async function init() {
     streamMuxers: [new Mplex()],
     dht: new KadDHT(),
     //pubsub: new GossipSub(),
-    // addresses: {
-    //   listen: [
-    //     '/ip4/0.0.0.0/tcp/0',
-    //   ],
-    // },
+    addresses: {
+      listen: [
+        '/ip4/0.0.0.0/tcp/0',
+      ],
+    },
     connectionManager: {
       //dialTimeout: 1000000,
       autoDial: true

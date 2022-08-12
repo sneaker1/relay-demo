@@ -66,10 +66,12 @@ async function init() {
     },
     relay: {
       enabled: true,
-      autoRelay: {
+      hop: {
         enabled: true,
-        maxListeners: 10
-      }
+      },
+      advertise: {
+        enabled: true,
+      },
     }
   }) // END libp2p.create
 
