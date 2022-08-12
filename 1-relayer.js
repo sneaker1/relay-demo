@@ -102,9 +102,9 @@ async function init() {
 
   //console.log(node.components.getTransportManager().transports);
 
-  console.log(`Node started with id ${node.peerId.toB58String()}`)
+  console.log(`Node started with id ${node.peerId.toString()}`)
   console.log('Listening on:')
-  node.multiaddrs.forEach((ma) => console.log(`${ma.toString()}/p2p/${node.peerId.toB58String()}`))
+  node.multiaddrs.forEach((ma) => console.log(`${ma.toString()}/p2p/${node.peerId.toString()}`))
 }
 
 init();
