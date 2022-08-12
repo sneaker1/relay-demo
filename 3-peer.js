@@ -85,8 +85,8 @@ async function init() {
   node.connectionManager.addEventListener("peer:disconnect", (evt) => {
     const peer = evt.detail
     console.log("Disconnected: " + peer.remotePeer.toString())
-    var index = connectedPeers.indexOf(peer.remotePeer.toString());
-    connectedPeers.splice(index, 1);
+    var index = variables.connectedPeers.indexOf(peer.remotePeer.toString());
+    variables.connectedPeers.splice(index, 1);
   });
 
   // Add protocol handler
