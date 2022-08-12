@@ -7,6 +7,7 @@ import {KadDHT} from "@libp2p/kad-dht";
 import {Bootstrap} from "@libp2p/bootstrap";
 import {createRSAPeerId, createEd25519PeerId, createSecp256k1PeerId, createFromJSON, exportToProtobuf} from "@libp2p/peer-id-factory";
 import fs from "fs";
+import disc from "./disc.js";
 
 // VARIABLES
 var node = {};
