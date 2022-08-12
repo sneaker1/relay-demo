@@ -25,6 +25,6 @@
     "@libp2p/peer-id-factory": "^1.0.18",
     "@libp2p/tcp": "^3.0.3",
     "@libp2p/websockets": "^3.0.2",
-    "libp2p": "^0.37.3-05e8e7e"
+    "libp2p": "^0.37.3-6630cb1"
   }
 }
