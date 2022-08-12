@@ -50,11 +50,11 @@ async function init() {
     streamMuxers: [new Mplex()],
     dht: new KadDHT(),
     //pubsub: new GossipSub(),
-    addresses: {
-      listen: [
-        '/ip4/0.0.0.0/tcp/0',
-      ],
-    },
+    // addresses: {
+    //   listen: [
+    //     '/ip4/0.0.0.0/tcp/0',
+    //   ],
+    // },
     connectionManager: {
       //dialTimeout: 1000000,
       autoDial: true
@@ -93,6 +93,14 @@ async function init() {
     const peer = evt.detail
     console.log("Disconnected: " + peer.remotePeer.toString())
   });
+
+  // Wait for connection and relay to be bind for the example purpose
+  // node.peerStore.on('change:multiaddrs', ({ peerId }) => {
+  //   // Updated self multiaddrs?
+  //   if (peerId.equals(node.peerId)) {
+  //     console.log(`Advertising with a relay address of ${node.multiaddrs[0].toString()}/p2p/${node.peerId.toB58String()}`)
+  //   }
+  // })
 
   // node.peerStore.addEventListener('peer', evt => {
   //     console.log("peers");
