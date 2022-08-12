@@ -9,7 +9,7 @@ import {createRSAPeerId, createEd25519PeerId, createSecp256k1PeerId, createFromJ
 import fs from "fs";
 import { EventEmitter, CustomEvent } from '@libp2p/interfaces/events';
 import disc from "./disc.js";
-import variables "./misc/variables.js";
+import variables from "./misc/variables.js";
 
 // VARIABLES
 var node = {};
