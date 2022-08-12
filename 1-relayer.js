@@ -70,6 +70,11 @@ async function init() {
       enabled: true,
       hop: {
         enabled: true,
+        maxListeners: 10
+      },
+      autoRelay: {
+        enabled: true,
+        maxListeners: 10
       },
       advertise: {
         enabled: true,
