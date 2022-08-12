@@ -73,7 +73,7 @@ async function init() {
     //await node.dial("/ip4/127.0.0.1/tcp/15002/ws/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
   });
 
-  node.connectionManager.addEventListener("peer:connect", (evt) => {
+  node.connectionManager.addEventListener("peer:connect", async (evt) => {
     const conn = evt.detail
     console.log("Connected: " + conn.remotePeer.toString())
     //setTimeout( async () => {
