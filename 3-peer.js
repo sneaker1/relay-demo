@@ -78,20 +78,7 @@ async function init() {
     //await node.dial("/ip4/127.0.0.1/tcp/15002/ws/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
   });
 
-  node.connectionManager.addEventListener("peer:connect", async (evt) => {
-    const conn = evt.detail
-    console.log("Connected: " + conn.remotePeer.toString())
-    connectedPeers.push(conn.remotePeer.toString());
-    var peerInfo = await node.peerStore.get(conn.remotePeer);
-    var answer = await disc.getPeers(node, conn.remotePeer.toString());
-    //console.log(answer);
-    for(var i=0; i<answer.answer.length; i++) {
-      if(answer.answer[i] !== node.peerId.toString()) {
-        //console.log("Dialing: " + answer.answer[i]);
-        await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/" + answer.answer[i]);
-      }
-    }
-  });
+  node.connectionManager.addEventListener("peer:connect", async (evt) => {onConnect.onConnect(evt, node)});
 
   node.connectionManager.addEventListener("peer:disconnect", (evt) => {
     const peer = evt.detail
