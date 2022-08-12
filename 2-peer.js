@@ -51,13 +51,13 @@ async function init() {
     streamMuxers: [new Mplex()],
     dht: new KadDHT(),
     //pubsub: new GossipSub(),
-    // addresses: {
-    //    listen: [
-    //      //'/ip4/0.0.0.0/tcp/0',
-    //      '/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6',
-    //    ],
-    //   announce: ["/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6"]
-    // },
+    addresses: {
+       listen: [
+         '/ip4/0.0.0.0/tcp/0',
+         //'/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6',
+       ],
+      //announce: ["/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6"]
+    },
     connectionManager: {
       //dialTimeout: 1000000,
       autoDial: true
