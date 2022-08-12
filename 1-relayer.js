@@ -30,13 +30,11 @@ const replacerFunc = () => {
 setInterval(async () => {
   var mypeerstore = await node.peerStore.all();
   for(var i=0; i<mypeerstore.length; i++) {
-    if(mypeerstore[i]) {
-      console.log(mypeerstore[i].addresses.length);
-      console.log("i=" + i);
-      for(var j=0; j<mypeerstore[i].addresses.length; i++) {
-        console.log("Multiaddr: " + mypeerstore[i].addresses[j].multiaddr);
-        console.log(mypeerstore[i].id.toString());
-      }
+    console.log(mypeerstore[i].addresses.length);
+    console.log("i=" + i);
+    for(var j=0; j<mypeerstore[i].addresses.length; j++) {
+      console.log("Multiaddr: " + mypeerstore[i].addresses[j].multiaddr);
+      console.log(mypeerstore[i].id.toString());
     }
   }
   //console.log(mypeerstore);
