@@ -31,7 +31,7 @@ setInterval(async () => {
   var mypeerstore = await node.peerStore.all();
   for(var i=0; i<mypeerstore.length; i++) {
     for(var j=0; j<mypeerstore[i].addresses; i++) {
-      console.log(mypeerstore[i].addresses[j].multiaddr.toString());
+      console.log("Multiaddr: " + mypeerstore[i].addresses[j].multiaddr);
     }
   }
   //console.log(mypeerstore);
