@@ -74,14 +74,29 @@ async function init() {
   });
 
   node.connectionManager.addEventListener("peer:connect", (evt) => {
-    const peer = evt.detail
-    console.log("Connected: " + peer.remotePeer.toString())
+    const conn = evt.detail
+    console.log("Connected: " + conn.remotePeer.toString())
+    //setTimeout( async () => {
+      //console.log("Requesting getPeers");
+      var peerInfo = await node.peerStore.get(conn.remotePeer);
+      var answer = await disc.getPeers(node, conn.remotePeer.toString());
+      //console.log(answer);
+      for(var i=0; i<answer.answer.length; i++) {
+        if(answer.answer[i] !== node.peerId.toString()) {
+          console.log("Dialing: " + answer.answer[i]);
+          await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/" + answer.answer[i]);
+        }
+      }
+    //}, 100);
   });
 
   node.connectionManager.addEventListener("peer:disconnect", (evt) => {
     const peer = evt.detail
     console.log("Disconnected: " + peer.remotePeer.toString())
   });
+
+  // Add protocol handler
+  await node.handle("/disc", async ({connection, stream, protocol}) => {disc.handler({connection, stream, protocol}, node)});
 
   console.log("debug1");
   await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");

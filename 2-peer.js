@@ -94,10 +94,10 @@ async function init() {
     const conn = evt.detail
     console.log("Connected: " + conn.remotePeer.toString())
     //setTimeout( async () => {
-      console.log("Requesting getPeers");
+      //console.log("Requesting getPeers");
       var peerInfo = await node.peerStore.get(conn.remotePeer);
       var answer = await disc.getPeers(node, conn.remotePeer.toString());
-      console.log(answer);
+      //console.log(answer);
     //}, 100);
   });
 
@@ -107,8 +107,7 @@ async function init() {
   });
 
   // Add protocol handler
-
-  await node.handle("/disc", async ({connection, stream, protocol}) => {disc.handler({connection, stream, protocol})});
+  await node.handle("/disc", async ({connection, stream, protocol}) => {disc.handler({connection, stream, protocol}, node)});
 
   // Wait for connection and relay to be bind for the example purpose
   // node.peerStore.on('change:multiaddrs', ({ peerId }) => {
@@ -122,10 +121,8 @@ async function init() {
   //     console.log("peers");
   // });
 
-  //await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/");
-  console.log("debug");
-  await node.dial("/ip4/127.0.0.1/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/");
-  console.log("debug");
+  await node.dial("/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/");
+  //await node.dial("/ip4/127.0.0.1/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/");
 
   console.log(node.peerId.toString());
 }
