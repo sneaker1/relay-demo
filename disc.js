@@ -7,7 +7,6 @@ import { fromString as uint8ArrayFromString } from 'uint8arrays/from-string'
 // HANDLER //
 /////////////
 async function handler({connection, stream, protocol}, node) {
-  console.log("handler");
   for await (const msg1 of stream.source) {
     var msgJSON = JSON.parse(uint8ArrayToString(msg1));
   }
@@ -19,11 +18,9 @@ async function handler({connection, stream, protocol}, node) {
   // ANSWER REQUEST FOR getPeers //
   ///////////////////////////////
   if(msgJSON.request == "getPeers") {
-    console.log("answering getPeers")
     var mypeerstore = await node.peerStore.all();
     var peers = [];
     for(var i=0; i<mypeerstore.length; i++) {
-      console.log(mypeerstore[i].id.toString());
       peers.push(mypeerstore[i].id.toString());
     }
     var returnObj = {
