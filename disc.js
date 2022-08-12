@@ -2,6 +2,7 @@ import {peerIdFromString} from "@libp2p/peer-id";
 import {pipe} from "it-pipe";
 import { toString as uint8ArrayToString } from 'uint8arrays/to-string'
 import { fromString as uint8ArrayFromString } from 'uint8arrays/from-string'
+import variables from "./misc/variables.js"
 
 /////////////
 // HANDLER //
@@ -24,7 +25,7 @@ async function handler({connection, stream, protocol}, node) {
       peers.push(mypeerstore[i].id.toString());
     }
     var returnObj = {
-      answer: peers
+      answer: variables.connectedPeers
     }
     var answer = uint8ArrayFromString(JSON.stringify(returnObj));
     pipe(
