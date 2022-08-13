@@ -39,9 +39,16 @@ setInterval(async () => {
 }, 10000);
 
 async function init() {
-  // Read the peerId.json file
-  var mypeerId = JSON.parse(fs.readFileSync("./peer1Id.json", 'utf8'));
-  var id = await createFromJSON(mypeerId);
+  if(process.argv[2] == "random") {
+    console.log("random");
+    var id = await createRSAPeerId();
+  }
+  else {
+    // Read the peerId.json file
+    var mypeerId = JSON.parse(fs.readFileSync("./peer1Id.json", 'utf8'));
+    var id = await createFromJSON(mypeerId);
+  }
+
 
   const bootstrapers = [
     '/ip4/127.0.0.1/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU',
