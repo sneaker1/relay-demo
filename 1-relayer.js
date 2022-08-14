@@ -5,8 +5,8 @@ import { Noise } from "@chainsafe/libp2p-noise";
 import {Mplex} from "@libp2p/mplex";
 import {KadDHT} from "@libp2p/kad-dht";
 import {Bootstrap} from "@libp2p/bootstrap";
-import {PubSubPeerDiscovery} from "@libp2p/pubsub-peer-discovery";
-import {GossipSub} from "@chainsafe/libp2p-gossipsub";
+// import {PubSubPeerDiscovery} from "@libp2p/pubsub-peer-discovery";
+// import {GossipSub} from "@chainsafe/libp2p-gossipsub";
 import {createRSAPeerId, createEd25519PeerId, createSecp256k1PeerId, createFromJSON, exportToProtobuf} from "@libp2p/peer-id-factory";
 import fs from "fs";
 import { EventEmitter, CustomEvent } from '@libp2p/interfaces/events';
@@ -56,7 +56,7 @@ async function init() {
     connectionEncryption: [new Noise()],
     streamMuxers: [new Mplex()],
     dht: new KadDHT(),
-    pubsub: new GossipSub(),
+    //pubsub: new GossipSub(),
     addresses: {
       listen: [
         //'/ip4/89.58.0.139/tcp/15002',
@@ -65,14 +65,14 @@ async function init() {
       //announce: ['/dns4/auto-relay.libp2p.io/tcp/443/wss/p2p/QmWDn2LY8nannvSWJzruUYoLZ4vV83vfCBwd8DipvdgQc3']
       announce: ['/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU']
     },
-    peerDiscovery: [
-    //   new Bootstrap({
-    //     list: bootstrapers
+    // peerDiscovery: [
+    // //   new Bootstrap({
+    // //     list: bootstrapers
+    // //   })
+    //   new PubSubPeerDiscovery({
+    //     interval: 1000
     //   })
-      new PubSubPeerDiscovery({
-        interval: 1000
-      })
-    ],
+    // ],
     connectionManager: {
       //dialTimeout: 1000000,
       autoDial: true
