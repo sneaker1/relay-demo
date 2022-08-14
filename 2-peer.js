@@ -5,6 +5,8 @@ import { Noise } from "@chainsafe/libp2p-noise";
 import {Mplex} from "@libp2p/mplex";
 import {KadDHT} from "@libp2p/kad-dht";
 import {Bootstrap} from "@libp2p/bootstrap";
+import {PubSubPeerDiscovery} from "@libp2p/pubsub-peer-discovery";
+import {GossipSub} from "@chainsafe/libp2p-gossipsub";
 import {createRSAPeerId, createEd25519PeerId, createSecp256k1PeerId, createFromJSON, exportToProtobuf} from "@libp2p/peer-id-factory";
 import fs from "fs";
 import disc from "./disc.js";
@@ -63,23 +65,26 @@ async function init() {
     connectionEncryption: [new Noise()],
     streamMuxers: [new Mplex()],
     dht: new KadDHT(),
-    //pubsub: new GossipSub(),
+    pubsub: new GossipSub(),
     addresses: {
        listen: [
          //'/ip4/0.0.0.0/tcp/0',
          //'/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6',
        ],
-      //announce: ["/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/QmcqgSkk4ohdifycnZYScNLyHohmAtFeiPCtv5GrbMyvk6"]
+      announce: ["/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU/p2p-circuit/p2p/" + id.toString()]
     },
     connectionManager: {
       //dialTimeout: 1000000,
       autoDial: true
     },
-    // peerDiscovery: [
+    peerDiscovery: [
     //   new Bootstrap({
     //     list: bootstrapers
     //   })
-    // ],
+      new PubSubPeerDiscovery({
+        interval: 1000
+      })
+    ],
     relay: {
       enabled: true,
       autoRelay: {
@@ -99,11 +104,15 @@ async function init() {
   node.addEventListener("peer:discovery", async (evt) => {
     const peer = evt.detail
     //console.log(peer);
-    //console.log(`Discovered: ${peer.id.toString()}`)
+    console.log(`Discovered: ${peer.id.toString()}`)
     //await node.dial("/ip4/127.0.0.1/tcp/15002/ws/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU");
   });
 
-  node.connectionManager.addEventListener("peer:connect", async (evt) => {onConnect.onConnect(evt, node)});
+  //node.connectionManager.addEventListener("peer:connect", async (evt) => {onConnect.onConnect(evt, node)});
+  node.connectionManager.addEventListener("peer:connect", async (evt) => {
+    const peer = evt.detail;
+    console.log("Connected: " + peer.remotePeer.toString());
+  });
 
   node.connectionManager.addEventListener("peer:disconnect", (evt) => {
     const peer = evt.detail
