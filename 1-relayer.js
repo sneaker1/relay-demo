@@ -36,7 +36,7 @@ setInterval(async () => {
   console.log("Peers: " + variables.connectedPeers.length);
   for(var i=0; i<mypeerstore.length; i++) {
     for(var j=0; j<mypeerstore[i].addresses.length; j++) {
-      //console.log(mypeerstore[i].id.toString() + ": " + mypeerstore[i].addresses[j].multiaddr);
+      console.log(mypeerstore[i].id.toString() + ": " + mypeerstore[i].addresses[j].multiaddr);
     }
   }
   //console.log(mypeerstore);
