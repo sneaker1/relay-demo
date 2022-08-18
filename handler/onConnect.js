@@ -13,7 +13,8 @@ async function onConnect(evt, node) {
     }
     variables.connectedPeers.push(conn.remotePeer.toString());
     var answer = await disc.getPeers(node, conn.remotePeer.toString());
-    //console.log(answer);
+    console.log("received answer:");
+    console.log(answer);
     for(var i=0; i<answer.answer.length; i++) {
       if(answer.answer[i] !== node.peerId.toString()) {
         //console.log("Dialing: " + answer.answer[i]);

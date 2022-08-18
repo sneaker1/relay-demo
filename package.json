@@ -28,6 +28,7 @@
     "@libp2p/websockets": "^3.0.2",
     "colors": "^1.4.0",
     "it-pipe": "^2.0.4",
+    "it-to-buffer": "^2.0.2",
     "libp2p": "^0.38.0"
   }
 }

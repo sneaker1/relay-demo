@@ -63,7 +63,7 @@ async function init() {
         "/ip4/0.0.0.0/tcp/15002"
       ],
       //announce: ['/dns4/auto-relay.libp2p.io/tcp/443/wss/p2p/QmWDn2LY8nannvSWJzruUYoLZ4vV83vfCBwd8DipvdgQc3']
-      announce: ['/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU']
+      //announce: ['/ip4/89.58.0.139/tcp/15002/p2p/QmSaT2NnWddF4e2WVWSPz22mp2dYXFnESF4vRqGuBB4SFU']
     },
     // peerDiscovery: [
     // //   new Bootstrap({
